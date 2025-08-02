@@ -41,6 +41,108 @@ body {
     --border-color: #e9ecef;
 }
 
+/* Light Mode Styles */
+[data-theme="light"] body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+[data-theme="light"] .hero-section {
+    color: #ffffff;
+}
+
+[data-theme="light"] .hero-section h1,
+[data-theme="light"] .hero-section p,
+[data-theme="light"] .hero-section .lead {
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .card {
+    background-color: #ffffff;
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="light"] .text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .category-card,
+[data-theme="light"] .product-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .category-card:hover,
+[data-theme="light"] .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: #0d6efd;
+}
+
+/* Light mode section backgrounds and text */
+[data-theme="light"] .bg-light {
+    background-color: #f8f9fa !important;
+    color: var(--text-color) !important;
+}
+
+[data-theme="light"] .section-title {
+    color: var(--text-color) !important;
+}
+
+[data-theme="light"] .card-title {
+    color: var(--text-color) !important;
+}
+
+[data-theme="light"] .card-text {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .navbar-dark {
+    background-color: #343a40 !important;
+}
+
+[data-theme="light"] .navbar-dark .navbar-brand,
+[data-theme="light"] .navbar-dark .nav-link {
+    color: #ffffff !important;
+}
+
+[data-theme="light"] footer {
+    background-color: #212529 !important;
+    color: #ffffff !important;
+}
+
+/* Ensure proper contrast for all text elements */
+[data-theme="light"] h1, 
+[data-theme="light"] h2, 
+[data-theme="light"] h3, 
+[data-theme="light"] h4, 
+[data-theme="light"] h5, 
+[data-theme="light"] h6 {
+    color: var(--text-color) !important;
+}
+
+[data-theme="light"] p {
+    color: var(--text-color) !important;
+}
+
+[data-theme="light"] .lead {
+    color: var(--text-color) !important;
+}
+
+/* Special case for hero section to maintain white text */
+[data-theme="light"] .hero-section h1,
+[data-theme="light"] .hero-section h2,
+[data-theme="light"] .hero-section h3,
+[data-theme="light"] .hero-section h4,
+[data-theme="light"] .hero-section h5,
+[data-theme="light"] .hero-section h6,
+[data-theme="light"] .hero-section p,
+[data-theme="light"] .hero-section .lead {
+    color: #ffffff !important;
+}
+
 /* Dark Mode Styles */
 [data-theme="dark"] body {
     background-color: var(--bg-color);
