@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - TechMart{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') if current_user.is_authenticated else url_for('index') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('products') }}">Products</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('products', category=product.category_id) }}">{{ product.category.name }}</a></li>
+            <li class="breadcrumb-item active">{{ product.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-lg-6">
+            <div class="product-detail-image">
+                {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" class="img-fluid rounded">
+                {% else %}
+                <div class="placeholder-image-large">
+                    <i class="fas fa-image"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-lg-6">
+            <div class="product-detail-info">
+                <h1 class="h3 mb-3">{{ product.name }}</h1>
+                
+                {% if product.brand %}
+                <p class="text-muted mb-2"><strong>Brand:</strong> {{ product.brand }}</p>
+                {% endif %}
+                
+                {% if product.model %}
+                <p class="text-muted mb-3"><strong>Model:</strong> {{ product.model }}</p>
+                {% endif %}
+
+                <div class="price-section mb-4">
+                    <span class="price-large text-primary fw-bold">${{ "%.2f"|format(product.price) }}</span>
+                </div>
+
+                <div class="stock-section mb-4">
+                    {% if product.in_stock %}
+                    <span class="badge bg-success fs-6">
+                        <i class="fas fa-check me-1"></i>In Stock ({{ product.stock_quantity }} available)
+                    </span>
+                    {% else %}
+                    <span class="badge bg-danger fs-6">
+                        <i class="fas fa-times me-1"></i>Out of Stock
+                    </span>
+                    {% endif %}
+                </div>
+
+                {% if product.description %}
+                <div class="description-section mb-4">
+                    <h5>Description</h5>
+                    <p>{{ product.description }}</p>
+                </div>
+                {% endif %}
+
+                {% if current_user.is_authenticated and product.in_stock %}
+                <form method="POST" action="{{ url_for('add_to_cart', product_id=product.id) }}" class="mb-4">
+                    <div class="row align-items-end">
+                        <div class="col-auto">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <select name="quantity" id="quantity" class="form-select" style="width: 80px;">
+                                {% for i in range(1, [product.stock_quantity + 1, 11]|min) %}
+                                <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {% elif not current_user.is_authenticated %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <a href="{{ url_for('replit_auth.login') }}" class="alert-link">Login</a> to add items to your cart.
+                </div>
+                {% endif %}
+
+                {% if product.specifications %}
+                <div class="specifications-section">
+                    <h5>Specifications</h5>
+                    <div class="specifications-text">
+                        {{ product.specifications|safe }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if related_products %}
+    <section class="mt-5">
+        <h3 class="h4 mb-4">Related Products</h3>
+        <div class="row g-4">
+            {% for related_product in related_products %}
+            <div class="col-lg-3 col-md-6">
+                <div class="product-card h-100">
+                    <div class="product-image">
+                        {% if related_product.image_url %}
+                        <img src="{{ related_product.image_url }}" alt="{{ related_product.name }}" class="card-img-top">
+                        {% else %}
+                        <div class="placeholder-image">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        {% endif %}
+                        {% if not related_product.in_stock %}
+                        <div class="out-of-stock-badge">Out of Stock</div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ related_product.name }}</h5>
+                        <p class="card-text text-muted small flex-grow-1">{{ related_product.description[:80] }}{% if related_product.description|length > 80 %}...{% endif %}</p>
+                        <div class="product-info">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="price fw-bold text-primary">${{ "%.2f"|format(related_product.price) }}</span>
+                                {% if related_product.brand %}
+                                <small class="text-muted">{{ related_product.brand }}</small>
+                                {% endif %}
+                            </div>
+                            <a href="{{ url_for('product_detail', product_id=related_product.id) }}" class="btn btn-outline-primary w-100">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}
