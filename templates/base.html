@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,11 +37,13 @@
                 </ul>
                 
                 <ul class="navbar-nav">
+                    <!-- Theme toggle button removed - website is dark mode only
                     <li class="nav-item">
                         <button class="btn btn-outline-light btn-sm me-2" id="theme-toggle" onclick="toggleTheme()">
                             <i class="fas fa-moon" id="theme-icon"></i>
                         </button>
                     </li>
+                    -->
                     {% if current_user.is_authenticated %}
                         {% if current_user.is_admin %}
                         <li class="nav-item">

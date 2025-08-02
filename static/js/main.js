@@ -1,6 +1,7 @@
 // Main JavaScript for TechMart
 
-// Theme Management
+// Theme Management - Removed (Dark mode only)
+/*
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -16,20 +17,15 @@ function toggleTheme() {
         themeIcon.className = 'fas fa-moon';
     }
 }
+*/
 
 // Initialize theme on page load
 function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    // Website is now dark mode only - no theme switching
+    document.documentElement.setAttribute('data-theme', 'dark');
     
-    const themeIcon = document.getElementById('theme-icon');
-    if (themeIcon) {
-        if (savedTheme === 'dark') {
-            themeIcon.className = 'fas fa-sun';
-        } else {
-            themeIcon.className = 'fas fa-moon';
-        }
-    }
+    // Remove theme from localStorage since we no longer use it
+    localStorage.removeItem('theme');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
