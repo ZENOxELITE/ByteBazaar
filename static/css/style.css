@@ -180,33 +180,40 @@ body {
     color: #b8c8d4;
 }
 
-/* Enhanced RGB effects for specific cards */
-[data-theme="dark"] .category-card {
+/* Enhanced RGB Lightning Effects */
+[data-theme="dark"] .category-card,
+[data-theme="dark"] .product-card {
     position: relative;
     overflow: hidden;
 }
 
-[data-theme="dark"] .category-card::before {
+[data-theme="dark"] .category-card::before,
+[data-theme="dark"] .product-card::before {
     content: '';
     position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #ff006e);
-    background-size: 300% 300%;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #ff4757, #ff006e);
+    background-size: 400% 400%;
     border-radius: inherit;
     z-index: -2;
-    animation: rgbGlow 3s ease-in-out infinite;
+    animation: rgbLightning 2s ease-in-out infinite;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: all 0.3s ease;
+    filter: blur(8px);
 }
 
-[data-theme="dark"] .category-card:hover::before {
-    opacity: 0.8;
+[data-theme="dark"] .category-card:hover::before,
+[data-theme="dark"] .product-card:hover::before {
+    opacity: 1;
+    filter: blur(12px);
+    animation: rgbLightning 1s ease-in-out infinite, electricPulse 0.5s ease-in-out infinite;
 }
 
-[data-theme="dark"] .category-card::after {
+[data-theme="dark"] .category-card::after,
+[data-theme="dark"] .product-card::after {
     content: '';
     position: absolute;
     top: 0;
@@ -216,6 +223,27 @@ body {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     border-radius: inherit;
     z-index: -1;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .category-card:hover::after,
+[data-theme="dark"] .product-card:hover::after {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.1),
+        0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+/* Lightning bolt effect on hover */
+[data-theme="dark"] .category-card:hover,
+[data-theme="dark"] .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(0, 255, 255, 0.4),
+        0 0 40px rgba(255, 0, 255, 0.2);
 }
 
 /* Hero Section */
@@ -407,6 +435,52 @@ body {
     50% { background-position: 100% 100%; }
     75% { background-position: 50% 100%; }
     100% { background-position: 0% 50%; }
+}
+
+@keyframes rgbLightning {
+    0% { 
+        background-position: 0% 50%; 
+        transform: scale(1) rotate(0deg);
+    }
+    20% { 
+        background-position: 100% 0%; 
+        transform: scale(1.02) rotate(1deg);
+    }
+    40% { 
+        background-position: 0% 100%; 
+        transform: scale(0.98) rotate(-1deg);
+    }
+    60% { 
+        background-position: 100% 50%; 
+        transform: scale(1.01) rotate(0.5deg);
+    }
+    80% { 
+        background-position: 50% 0%; 
+        transform: scale(1) rotate(-0.5deg);
+    }
+    100% { 
+        background-position: 0% 50%; 
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes electricPulse {
+    0%, 100% { 
+        filter: brightness(1) blur(8px);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    25% { 
+        filter: brightness(1.3) blur(12px);
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.7);
+    }
+    50% { 
+        filter: brightness(1.1) blur(10px);
+        box-shadow: 0 0 25px rgba(255, 255, 0, 0.6);
+    }
+    75% { 
+        filter: brightness(1.2) blur(14px);
+        box-shadow: 0 0 35px rgba(0, 255, 128, 0.8);
+    }
 }
 
 /* Feature Cards */
