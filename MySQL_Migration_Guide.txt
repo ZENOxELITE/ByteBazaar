@@ -1,0 +1,251 @@
+================================================================================
+                    MYSQL DATABASE MIGRATION GUIDE FOR TECHMART
+                      PostgreSQL to MySQL with XAMPP Setup
+================================================================================
+
+This guide will help you migrate from PostgreSQL to MySQL using XAMPP on your 
+local machine.
+
+================================================================================
+                                 PREREQUISITES
+================================================================================
+
+1. XAMPP installed and running (Apache + MySQL)
+2. Python project files downloaded to your local machine
+3. Basic command line knowledge
+
+================================================================================
+                              STEP 1: INSTALL XAMPP
+================================================================================
+
+1. Download XAMPP from: https://www.apachefriends.org/
+2. Install XAMPP with MySQL and Apache modules
+3. Start XAMPP Control Panel
+4. Start Apache and MySQL services
+5. Verify MySQL is running on port 3306 (default)
+
+================================================================================
+                         STEP 2: CREATE MYSQL DATABASE
+================================================================================
+
+Option A: Using phpMyAdmin (Recommended)
+----------------------------------------
+1. Open web browser and go to: http://localhost/phpmyadmin
+2. Click "New" to create a new database
+3. Enter database name: "techmart"
+4. Select Collation: "utf8mb4_general_ci"
+5. Click "Create"
+
+Option B: Using MySQL Command Line
+----------------------------------
+1. Open Command Prompt/Terminal
+2. Navigate to XAMPP MySQL bin folder:
+   Windows: cd "C:\xampp\mysql\bin"
+   macOS: cd "/Applications/XAMPP/xamppfiles/bin"
+3. Login to MySQL: mysql -u root -p
+   (Press Enter when prompted for password if no password set)
+4. Create database: CREATE DATABASE techmart;
+5. Exit MySQL: exit;
+
+================================================================================
+                      STEP 3: INSTALL MYSQL PYTHON DRIVER
+================================================================================
+
+1. Open Command Prompt/Terminal in your project folder
+2. Install the MySQL driver:
+   
+   pip install pymysql
+   
+   OR if using requirements.txt:
+   
+   pip install -r requirements.txt pymysql
+
+Note: PyMySQL is a pure Python MySQL driver that works well with SQLAlchemy
+
+================================================================================
+                        STEP 4: UPDATE DATABASE CONFIGURATION
+================================================================================
+
+1. Locate the following files in your project:
+   - app.py
+   - .env (if exists)
+   - Any configuration file
+
+2. Find the DATABASE_URL configuration line:
+   Current (PostgreSQL): 
+   DATABASE_URL=postgresql://username:password@localhost/techmart
+
+3. Replace with MySQL connection string:
+   
+   For XAMPP default setup (no password):
+   DATABASE_URL=mysql+pymysql://root@localhost/techmart
+   
+   For XAMPP with password:
+   DATABASE_URL=mysql+pymysql://root:yourpassword@localhost/techmart
+   
+   For custom MySQL user:
+   DATABASE_URL=mysql+pymysql://username:password@localhost/techmart
+
+4. If using environment variables, update your .env file:
+   DATABASE_URL=mysql+pymysql://root@localhost/techmart
+
+================================================================================
+                     STEP 5: REMOVE POSTGRESQL DEPENDENCIES
+================================================================================
+
+1. Open your requirements.txt or pyproject.toml file
+
+2. Remove or comment out PostgreSQL-related packages:
+   # psycopg2-binary  (comment this out)
+   
+3. Ensure MySQL driver is included:
+   pymysql
+
+4. Update requirements:
+   pip install -r requirements.txt
+
+================================================================================
+                      STEP 6: UPDATE APPLICATION CODE
+================================================================================
+
+1. Open app.py file
+
+2. Find any PostgreSQL-specific imports and remove them:
+   # Remove if present:
+   # import psycopg2
+
+3. No other code changes needed - SQLAlchemy will handle the database differences
+
+================================================================================
+                        STEP 7: TEST THE CONNECTION
+================================================================================
+
+1. Start XAMPP and ensure MySQL is running
+
+2. Run your Flask application:
+   python main.py
+   
+3. Check for any database connection errors in the console
+
+4. If successful, you should see:
+   "Database tables created"
+
+5. Open web browser and go to: http://localhost:5000
+
+================================================================================
+                      STEP 8: VERIFY DATA MIGRATION
+================================================================================
+
+1. Check if tables were created:
+   - Open phpMyAdmin: http://localhost/phpmyadmin
+   - Select "techmart" database
+   - Verify tables exist: users, products, categories, cart_items, orders, etc.
+
+2. Check sample data:
+   - Click on "categories" table
+   - Click "Browse" to see if sample categories are present
+   - Repeat for "products" table
+
+3. If tables are empty, the application will auto-populate sample data on first run
+
+================================================================================
+                            TROUBLESHOOTING
+================================================================================
+
+Problem: "Can't connect to MySQL server"
+Solution: 
+- Ensure XAMPP MySQL service is running
+- Check if port 3306 is available
+- Verify DATABASE_URL format
+
+Problem: "Access denied for user 'root'"
+Solution:
+- Check if MySQL root user has a password set
+- Update DATABASE_URL with correct password
+- Try: mysql+pymysql://root:password@localhost/techmart
+
+Problem: "Unknown database 'techmart'"
+Solution:
+- Verify database was created correctly
+- Check database name spelling in DATABASE_URL
+- Recreate database using phpMyAdmin
+
+Problem: "No module named 'pymysql'"
+Solution:
+- Install PyMySQL: pip install pymysql
+- Ensure virtual environment is activated
+
+Problem: Tables not created
+Solution:
+- Check console for error messages
+- Ensure models.py is properly imported in app.py
+- Manually create tables: python -c "from app import app, db; app.app_context().push(); db.create_all()"
+
+================================================================================
+                          PERFORMANCE OPTIMIZATION
+================================================================================
+
+For better performance with MySQL:
+
+1. Update connection settings in app.py:
+   app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+       "pool_recycle": 300,
+       "pool_pre_ping": True,
+       "pool_size": 10,
+       "max_overflow": 20
+   }
+
+2. Enable MySQL query caching in phpMyAdmin or my.cnf
+
+3. Consider indexing frequently queried columns
+
+================================================================================
+                            BACKUP RECOMMENDATIONS
+================================================================================
+
+1. Regular Database Backups:
+   - Use phpMyAdmin Export feature
+   - Export as SQL format with structure and data
+   - Store backups in secure location
+
+2. Code Backups:
+   - Use Git version control
+   - Commit changes before major modifications
+   - Keep separate branches for different database configurations
+
+================================================================================
+                              FINAL NOTES
+================================================================================
+
+1. MySQL and PostgreSQL have slight syntax differences, but SQLAlchemy handles most compatibility issues automatically.
+
+2. If you encounter any MySQL-specific errors, check the SQLAlchemy documentation for MySQL-specific configurations.
+
+3. Monitor application logs for any database-related warnings or errors after migration.
+
+4. Test all application features thoroughly after migration:
+   - User registration and login
+   - Product browsing and search
+   - Shopping cart functionality
+   - Order placement and history
+   - Admin dashboard features
+
+5. For production deployment, consider using a more robust MySQL configuration with proper user accounts and security settings.
+
+================================================================================
+                               SUPPORT
+================================================================================
+
+If you encounter issues during migration:
+
+1. Check the application logs for specific error messages
+2. Verify XAMPP MySQL service is running
+3. Test database connection using phpMyAdmin
+4. Ensure all Python dependencies are installed correctly
+5. Review the DATABASE_URL format carefully
+
+Remember: This migration retains all functionality while switching from PostgreSQL to MySQL. The application code requires minimal changes thanks to SQLAlchemy's database abstraction layer.
+
+================================================================================
+                                END OF GUIDE
+================================================================================

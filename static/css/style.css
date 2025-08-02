@@ -87,6 +87,23 @@ body {
     color: var(--text-color) !important;
 }
 
+/* Fix for sections outside hero that need dark text in light mode */
+[data-theme="light"] section:not(.hero-section) h1,
+[data-theme="light"] section:not(.hero-section) h2,
+[data-theme="light"] section:not(.hero-section) h3,
+[data-theme="light"] section:not(.hero-section) h4,
+[data-theme="light"] section:not(.hero-section) h5,
+[data-theme="light"] section:not(.hero-section) h6,
+[data-theme="light"] section:not(.hero-section) p,
+[data-theme="light"] section:not(.hero-section) .lead {
+    color: var(--text-color) !important;
+}
+
+[data-theme="light"] .feature-card h4,
+[data-theme="light"] .category-card h5 {
+    color: var(--text-color) !important;
+}
+
 [data-theme="light"] .section-title {
     color: var(--text-color) !important;
 }
