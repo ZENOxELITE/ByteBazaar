@@ -51,6 +51,62 @@ body {
     background-color: var(--surface-color);
     border-color: var(--border-color);
     color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff0080, #0080ff, #80ff00, #ff8000, #ff0080);
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -2;
+    animation: rgbGlow 4s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .card:hover::before {
+    opacity: 0.7;
+}
+
+[data-theme="dark"] .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--surface-color);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+[data-theme="dark"] .category-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .product-card {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="dark"] .bg-light {
@@ -67,6 +123,99 @@ body {
 
 [data-theme="dark"] footer {
     background-color: #0a0a0a !important;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: #2d2d2d;
+    border-color: #0d6efd;
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+[data-theme="dark"] .form-select {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+[data-theme="dark"] .table {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > td {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .alert-success {
+    background-color: #1e3d29;
+    border-color: #28a745;
+    color: #b8d4c2;
+}
+
+[data-theme="dark"] .alert-danger {
+    background-color: #3d1e1e;
+    border-color: #dc3545;
+    color: #d4b8b8;
+}
+
+[data-theme="dark"] .alert-info {
+    background-color: #1e2d3d;
+    border-color: #17a2b8;
+    color: #b8c8d4;
+}
+
+/* Enhanced RGB effects for specific cards */
+[data-theme="dark"] .category-card {
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .category-card::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #ff006e);
+    background-size: 300% 300%;
+    border-radius: inherit;
+    z-index: -2;
+    animation: rgbGlow 3s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+[data-theme="dark"] .category-card:hover::before {
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .category-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: inherit;
+    z-index: -1;
 }
 
 /* Hero Section */
@@ -250,6 +399,14 @@ body {
     25% { transform: translateY(-20px) rotate(10deg); opacity: 0.6; }
     50% { transform: translateY(-10px) rotate(-5deg); opacity: 0.4; }
     75% { transform: translateY(-30px) rotate(15deg); opacity: 0.5; }
+}
+
+@keyframes rgbGlow {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 50% 100%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Feature Cards */

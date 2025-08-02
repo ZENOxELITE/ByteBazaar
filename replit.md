@@ -27,7 +27,9 @@ Preferred communication style: Simple, everyday language.
 - **Template Engine**: Jinja2 templating with Bootstrap 5 for responsive design
 - **Component Structure**: Modular template inheritance with base layout and specialized pages
 - **User Interface**: Modern responsive design with Font Awesome icons and custom CSS
-- **Client-side Functionality**: JavaScript for enhanced UX including form animations and alert management
+- **Client-side Functionality**: JavaScript for enhanced UX including form animations, alert management, and theme switching
+- **Theme System**: Dark/Light mode toggle with RGB lighting effects in dark mode and localStorage persistence
+- **Visual Effects**: Animated computer illustration on homepage with floating tech icons and smooth transitions
 
 ### Authentication & Authorization
 - **Replit Auth Integration**: OAuth2 flow with browser session key tracking
