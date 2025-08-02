@@ -291,6 +291,77 @@ body {
     background-color: #0f0f0f !important;
 }
 
+/* Pagination styling for both themes */
+[data-theme="dark"] .pagination .page-link {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .pagination .page-link:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .pagination .page-item.disabled .page-link {
+    background-color: #1a1a1a;
+    border-color: #333;
+    color: #666;
+}
+
+[data-theme="light"] .pagination .page-link {
+    background-color: #ffffff;
+    border-color: #e9ecef;
+    color: #212529;
+}
+
+[data-theme="light"] .pagination .page-link:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+}
+
+[data-theme="light"] .pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+}
+
+/* Additional dark mode fixes */
+[data-theme="dark"] .dropdown-menu {
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: #0d6efd;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom-color: #444;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top-color: #444;
+}
+
 [data-theme="dark"] .text-muted {
     color: var(--text-muted) !important;
 }
