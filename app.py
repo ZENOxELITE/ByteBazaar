@@ -27,6 +27,7 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 
 # Initialize the app with the extension
 db.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 with app.app_context():
     # Make sure to import the models here or their tables won't be created
