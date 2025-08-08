@@ -16,7 +16,8 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url_for('index') if not current_user.is_authenticated else url_for('home') }}">
+<!--             <a class="navbar-brand fw-bold" href="{{ url_for('index') if not current_user.is_authenticated else url_for('home') }}"> -->
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
                 <i class="fas fa-laptop me-2"></i>TechMart
             </a>
             
