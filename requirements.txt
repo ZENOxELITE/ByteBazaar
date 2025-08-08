@@ -15,4 +15,4 @@ oauthlib>=3.3.1
 pyjwt>=2.10.1
 sqlalchemy>=2.0.42
 werkzeug>=3.1.3
-...
+
