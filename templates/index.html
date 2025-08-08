@@ -11,7 +11,8 @@
                 <h1 class="display-4 fw-bold mb-4">Welcome to TechMart</h1>
                 <p class="lead mb-4">Your ultimate destination for computer parts, accessories, and everything tech. From high-performance CPUs to cutting-edge graphics cards, we have everything you need to build your dream PC.</p>
                 <div class="d-flex gap-3">
-                    <a href="{{ url_for('replit_auth.login') }}" class="btn btn-light btn-lg px-4">
+<!--                     <a href="{{ url_for('replit_auth.login') }}" class="btn btn-light btn-lg px-4"> -->
+                    <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
                         <i class="fas fa-sign-in-alt me-2"></i>Get Started
                     </a>
                     <a href="{{ url_for('products') }}" class="btn btn-outline-light btn-lg px-4">
@@ -159,7 +160,8 @@
     <div class="container text-center">
         <h2 class="display-5 fw-bold mb-3">Ready to Build Your Dream PC?</h2>
         <p class="lead mb-4">Join thousands of satisfied customers who trust TechMart for their computer needs</p>
-        <a href="{{ url_for('replit_auth.login') }}" class="btn btn-light btn-lg px-5">
+<!--         <a href="{{ url_for('replit_auth.login') }}" class="btn btn-light btn-lg px-5"> -->
+        <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
             <i class="fas fa-rocket me-2"></i>Start Shopping Now
         </a>
     </div>
